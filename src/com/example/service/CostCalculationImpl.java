@@ -24,9 +24,7 @@ public class CostCalculationImpl implements CostCalculation{
 				}
 			}
 		}
-		else{
-			System.out.println("Basket is null");
-		}
+		
 		return totalCost;
 	}
 

@@ -13,13 +13,18 @@ public class CostCalculationImpl implements CostCalculation{
 	@Override
 	public double totalCost(Map<String, Integer> basket, Map<String, Double> price){
 		
-		if(basket != null){
+		if(basket != null && price != null){
 			Set<String> set = basket.keySet();
 			
 			for(String key: set){
 				if(null != key){
-					if(!(basket.get(key) <= 0) && price.get(key) != null && !(price.get(key) <=0)){
-						totalCost = totalCost + basket.get(key)*price.get(key);
+					try{
+						if(!(basket.get(key) <= 0) && null != (basket.get(key)) && null != price.get(key) && !(price.get(key) <=0)){
+							totalCost = totalCost + basket.get(key)*price.get(key);
+						}
+					}
+					catch(NullPointerException e){
+						//e.printStackTrace();
 					}
 				}
 			}

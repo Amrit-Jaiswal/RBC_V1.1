@@ -22,7 +22,7 @@ public class CostCalculationTestCase extends TestCase {
 		basket.put("Bananas", 1);
 		basket.put("Oranges", 1);
 		basket.put("Apples", 1);
-		basket.put("Lemons", 1);
+		basket.put("Lemons", null);
 		basket.put(null, 1);
 		basket.put(null, 1);
 		
@@ -31,7 +31,7 @@ public class CostCalculationTestCase extends TestCase {
 			key = entry.getKey();
 			try{
 				if(null != key){
-					value = (double) (++i*20);
+					value = (double) (++i*10);
 					priceMap.put(key, value);
 				}
 				else{
@@ -42,7 +42,7 @@ public class CostCalculationTestCase extends TestCase {
 				System.err.println("Not a valid price");
 			}
 			
-			if(value > 0 && value != null){
+			if(value > 0 && null != value && null != entry.getValue()){
 				testPrice=testPrice + value*entry.getValue();
 			}
 		}
@@ -54,26 +54,30 @@ public class CostCalculationTestCase extends TestCase {
 	@Test
 	public void testNullValues(){
 		assertEquals(0.0,(new CostCalculationImpl()).totalCost(null,null));
-		System.out.println("Testing with null values pass\nBasket is null");
-		System.out.println("--------");
 	}
 	
 	//2. Empty value testing
 	@Test
 	public void testEmptyValues(){
 		assertEquals(0.0,(new CostCalculationImpl()).totalCost(new HashMap<String, Integer>(),new HashMap<String, Double>()));
-		System.out.println("Testing with empty values pass");
-		System.out.println("Total Price: "+(new CostCalculationImpl()).totalCost(new HashMap<String, Integer>(),new HashMap<String, Double>()));
-		System.out.println("--------");
 	}
 	
 	//3. Valid values testing
 	@Test
 	public void testTotalCost(){
 		assertEquals(testPrice,(new CostCalculationImpl()).totalCost(basket,priceMap));
-		System.out.println("Testing with valid values pass");
-		System.out.println("Total Price: "+(new CostCalculationImpl()).totalCost(basket,priceMap));
-		System.out.println("--------");	
+	}
+	
+	//4. Only price is Null
+	@Test
+	public void testPriceNull(){
+		assertEquals(0.0,(new CostCalculationImpl()).totalCost(basket,null));
+	}
+	
+	//5. Only Basket is null
+	@Test
+	public void testBasketNull(){
+		assertEquals(0.0,(new CostCalculationImpl()).totalCost(null,priceMap));
 	}
 	
 }

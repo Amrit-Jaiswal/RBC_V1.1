@@ -5,17 +5,15 @@ import java.util.Set;
 
 public class CostCalculationImpl implements CostCalculation{
 	
-	private double totalCost =0.0;
-	
 	/**
 	 * Calculate the total price of items in basket
 	 */
 	@Override
 	public double totalCost(Map<String, Integer> basket, Map<String, Double> price){
-		
+		double totalCost =0.0;
 		if(basket != null && price != null){
 			Set<String> set = basket.keySet();
-			
+			t
 			for(String key: set){
 				if(null != key){
 					try{
